@@ -39,10 +39,10 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 		rawCapture.truncate(0)
 		continue
 
-	#On calcul les différences entre la moyenne des frames déjà nalysées et la frame actuelle
+	#On calcul les différences entre la moyenne des frames déjà analysées et la frame actuelle
 	cv2.accumulateWeighted(gray, avg, 0.5)
 	frameDelta = cv2.absdiff(gray, cv2.convertScaleAbs(avg))
-	#On binarise le résultat (avec un faible seuil !)
+	#On binarise le résultat (avec un faible seuil !) afin de faire resortir les objets détectés
 	thresh = cv2.threshold(frameDelta,5,255,cv2.THRESH_BINARY)[1]
 	#On dilate la frame au cas ou un objet aurait été coupé en plusieurs morceaux lors de la binarisation
 	thresh = cv2.dilate(thresh,None,iterations=2)
